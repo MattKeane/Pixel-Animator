@@ -13,7 +13,17 @@ const createNewRow = (length) => {
 	for (let i = 0; i < length; i++) {
 		newRow.appendChild(createNewPixel())
 	}
-	document.querySelector("body").appendChild(newRow)
+	return newRow
 }
 
-createNewRow(10)
+// function to create the board of pixels
+const createBoard = (width, height) => {
+	const board = document.createElement("div")
+	board.setAttribute("class", "board")
+	for (let i = 0; i < height; i++) {
+		board.appendChild(createNewRow(width))
+	}
+	return board
+}
+
+document.querySelector("body").appendChild(createBoard(10, 10))
