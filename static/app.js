@@ -8,8 +8,10 @@ const board = {
 	handleClick: function(e) {
 		if (e.target.className === "pixel") {
 			e.target.setAttribute("class", "white-pixel")
+			this.pixels[e.target.dataset.y][e.target.dataset.x] = 1
 		} else if (e.target.className === "white-pixel") {
 			e.target.setAttribute("class", "pixel")
+			this.pixels[e.target.dataset.y][e.target.dataset.x] = 0
 		} else {
 			console.log("Error: target's class name is invalid")
 		}
@@ -17,10 +19,12 @@ const board = {
 	},	
 
 	// method to create a new pixel in DOM and state
-	createNewPixel: function(row) {
-		this.pixels[row].push(0)
+	createNewPixel: function(x, y) {
+		this.pixels[y].push(0)
 		const newPixel = document.createElement("div")
 		newPixel.setAttribute("class", "pixel")
+		newPixel.setAttribute("data-x", x)
+		newPixel.setAttribute("data-y", y)
 		return newPixel
 	},
 
@@ -30,7 +34,7 @@ const board = {
 		const newRow = document.createElement("div")
 		newRow.setAttribute("class", "row")
 		for (let i = 0; i < length; i++) {
-			newRow.appendChild(this.createNewPixel(row))
+			newRow.appendChild(this.createNewPixel(i, row))
 		}
 		return newRow
 	},
