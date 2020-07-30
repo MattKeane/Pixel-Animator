@@ -1,5 +1,19 @@
-const newPixel = document.createElement("div")
-newPixel.setAttribute("class", "pixel")
-document.querySelector("body").appendChild(newPixel)
+// function to create a new pixel div
 
-console.log("Hello world")
+const createNewPixel = () => {
+	const newPixel = document.createElement("div")
+	newPixel.setAttribute("class", "pixel")
+	return newPixel
+}
+
+// function to create a row of pixels
+const createNewRow = (length) => {
+	const newRow = document.createElement("div")
+	newRow.setAttribute("class", "row")
+	for (let i = 0; i < length; i++) {
+		newRow.appendChild(createNewPixel())
+	}
+	document.querySelector("body").appendChild(newRow)
+}
+
+createNewRow(10)

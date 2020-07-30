@@ -7,4 +7,9 @@ body {
 	height: 20px;
 	width: 20px;
 	background-color: black;
+	border: 1px solid lavender;
+}
+
+.row {
+	display: flex;
 }
