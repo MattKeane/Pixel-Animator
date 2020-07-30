@@ -17,7 +17,13 @@ const createNewRow = (length) => {
 }
 
 const handleClick = e => {
-	e.target.setAttribute("class", "white-pixel")
+	if (e.target.className === "pixel") {
+		e.target.setAttribute("class", "white-pixel")
+	} else if (e.target.className === "white-pixel") {
+		e.target.setAttribute("class", "pixel")
+	} else {
+		console.log("Error: target's class name is invalid")
+	}
 }
 
 // function to create the board of pixels
