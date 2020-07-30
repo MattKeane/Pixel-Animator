@@ -16,6 +16,10 @@ const createNewRow = (length) => {
 	return newRow
 }
 
+const handleClick = e => {
+	e.target.setAttribute("class", "white-pixel")
+}
+
 // function to create the board of pixels
 const createBoard = (width, height) => {
 	const board = document.createElement("div")
@@ -23,6 +27,7 @@ const createBoard = (width, height) => {
 	for (let i = 0; i < height; i++) {
 		board.appendChild(createNewRow(width))
 	}
+	board.addEventListener("click", handleClick)
 	return board
 }
 
