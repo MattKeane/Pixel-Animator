@@ -5,7 +5,7 @@ const board = {
 
 	// event handlers
 
-	handleClick: function(e) {
+	handleEvent: function(e) {
 		if (e.target.className === "pixel") {
 			e.target.setAttribute("class", "white-pixel")
 			this.pixels[e.target.dataset.y][e.target.dataset.x] = 1
@@ -15,7 +15,6 @@ const board = {
 		} else {
 			console.log("Error: target's class name is invalid")
 		}
-		console.log(this.pixels)
 	},	
 
 	// method to create a new pixel in DOM and state
@@ -39,15 +38,23 @@ const board = {
 		return newRow
 	},
 
+	// method to initialize the board
+
 	create: function(width, height) {
 		const newBoard = document.createElement("div")
 		newBoard.setAttribute("class", "board")
 		for (let i = 0; i < height; i++) {
 			newBoard.appendChild(this.createNewRow(i, width))
 		}
-		newBoard.addEventListener("click", e => this.handleClick(e))
+		newBoard.addEventListener("mousedown", e => this.handleEvent(e))
 		return newBoard
+	},
+
+	submit: function() {
+		console.log(this.pixels)
 	}
 }
 
-document.querySelector("body").appendChild(board.create(10, 10))
+document.getElementById("board-container").appendChild(board.create(10, 10))
+
+document.getElementById("submit-button").addEventListener("click", e => board.submit())
