@@ -50,8 +50,16 @@ const board = {
 		return newBoard
 	},
 
-	submit: function() {
-		console.log(this.pixels)
+	submit: async function() {
+		const submitResponse = await fetch("/images/", {
+			method: "POST",
+			body: JSON.stringify(this.pixels),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		const submitJson = await submitResponse.json()
+		console.log(submitJson.message)
 	}
 }
 
