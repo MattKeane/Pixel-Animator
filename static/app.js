@@ -59,7 +59,9 @@ const board = {
 			}
 		})
 		const submitJson = await submitResponse.json()
-		console.log(submitJson.message)
+		if (submitJson.status === 200) {
+			window.open("/images/test2", "_blank")
+		}
 	}
 }
 

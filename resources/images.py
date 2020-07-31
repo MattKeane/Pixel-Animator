@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, send_from_directory
 from PIL import Image, ImageDraw
 
 black = (0, 0, 0)
@@ -12,7 +12,7 @@ def draw_gif(pixels):
 			colors = [black, white]
 			color = colors[pixels[i][j]]
 			draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
-	image.save("static/client/test.gif")
+	image.save("static/client/test2.gif")
 
 images = Blueprint("images", "images")
 
@@ -23,5 +23,12 @@ def new_image():
 	draw_gif(payload)
 	return jsonify(
 		data={},
-		message="Check terminal",
+		message="GIF Created",
 		status=200), 200
+
+@images.route("/<image_name>", methods=["GET"])
+def get_image(image_name):
+	try:
+		return send_from_directory("static/client", filename=f"{image_name}.gif", as_attachment=True)
+	except FileNotFoundError:
+		abort(404)
