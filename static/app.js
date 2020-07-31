@@ -60,7 +60,7 @@ const board = {
 		})
 		const submitJson = await submitResponse.json()
 		if (submitJson.status === 200) {
-			window.open("/images/test2", "_blank")
+			window.open(`/images/${submitJson.data.image_uuid}`, "_blank")
 		}
 	}
 }

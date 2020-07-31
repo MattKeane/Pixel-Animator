@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, send_from_directory
 from PIL import Image, ImageDraw
+import uuid
 
 black = (0, 0, 0)
 white =(255, 255, 255)
@@ -12,7 +13,9 @@ def draw_gif(pixels):
 			colors = [black, white]
 			color = colors[pixels[i][j]]
 			draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
-	image.save("static/client/test2.gif")
+	image_uuid = uuid.uuid4()
+	image.save(f"static/client/{image_uuid}.gif")
+	return image_uuid
 
 images = Blueprint("images", "images")
 
@@ -20,9 +23,9 @@ images = Blueprint("images", "images")
 def new_image():
 	payload = request.get_json()
 	print(payload)
-	draw_gif(payload)
+	image_uuid = draw_gif(payload)
 	return jsonify(
-		data={},
+		data={"image_uuid": image_uuid},
 		message="GIF Created",
 		status=200), 200
 
