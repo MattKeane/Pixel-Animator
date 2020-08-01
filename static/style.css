@@ -8,6 +8,7 @@ body {
 	width: 20px;
 	background-color: black;
 	border: 1px solid lavender;
+	visibility: inherit;
 }
 
 .white-pixel {
@@ -16,8 +17,14 @@ body {
 	width: 20px;
 	background-color: white;
 	border: 1px solid lavender;
+	visibility: inherit;
 }
 
 .row {
 	display: flex;
+	visibilty: inherit;
+}
+
+.invisible-board {
+	visibility: collapse;
 }
