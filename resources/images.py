@@ -5,15 +5,24 @@ import uuid
 black = (0, 0, 0)
 white =(255, 255, 255)
 
-def draw_gif(pixels, image_uuid):
-	image = Image.new("RGB", (200, 200), black)
-	draw = ImageDraw.Draw(image)
-	for i in range(len(pixels)):
-		for j in range(len(pixels[i])):
-			colors = [black, white]
-			color = colors[pixels[i][j]]
-			draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
-	image.save(f"static/images/{image_uuid}.gif")
+def draw_gif(frames, image_uuid):
+	images = []
+	for frame in frames:
+		image = Image.new("RGB", (200, 200), black)
+		draw = ImageDraw.Draw(image)
+		for i in range(len(frame)):
+			for j in range(len(frame[i])):
+				colors = [black, white]
+				color = colors[frame[i][j]]
+				draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
+		images.append(image)
+	images[0].save(
+		f"static/images/{image_uuid}.gif", 
+		save_all=True, 
+		append_images=images[1:],
+		optimize=False,
+		duration=40,
+		loop=0)
 
 images = Blueprint("images", "images")
 
