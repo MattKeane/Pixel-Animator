@@ -4,3 +4,4 @@ resources/__pycache__/
 *__pycache__*
 static/client/
 static/images/*
+!static/images/.gitkeep
