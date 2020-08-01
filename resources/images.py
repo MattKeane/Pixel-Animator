@@ -13,7 +13,7 @@ def draw_gif(pixels, image_uuid):
 			colors = [black, white]
 			color = colors[pixels[i][j]]
 			draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
-	image.save(f"static/client/{image_uuid}.gif")
+	image.save(f"static/images/{image_uuid}.gif")
 
 images = Blueprint("images", "images")
 
@@ -30,6 +30,6 @@ def new_image():
 @images.route("/<image_name>", methods=["GET"])
 def get_image(image_name):
 	try:
-		return send_from_directory("static/client", filename=f"{image_name}.gif", as_attachment=True)
+		return send_from_directory("static/images", filename=f"{image_name}.gif", as_attachment=True)
 	except FileNotFoundError:
 		abort(404)
