@@ -22,9 +22,9 @@ body {
 
 .row {
 	display: flex;
-	visibilty: inherit;
+	visibility: inherit;
 }
 
 .invisible-board {
-	visibility: collapse;
+	display: none;	
 }
