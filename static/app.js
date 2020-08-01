@@ -20,7 +20,7 @@ const board = {
 	// method to create a new pixel in DOM and state
 	createNewPixel: function(x, y, frame) {
 		this.frames[frame][y].push(0)
-		const newPixel = document.createElement("div")
+		const newPixel = document.createElement("td")
 		newPixel.setAttribute("class", "pixel")
 		newPixel.setAttribute("data-x", x)
 		newPixel.setAttribute("data-y", y)
@@ -31,7 +31,7 @@ const board = {
 	// method to create new row in DOM and state
 	createNewRow: function(row, length, frame) {
 		this.frames[frame].push([])
-		const newRow = document.createElement("div")
+		const newRow = document.createElement("tr")
 		newRow.setAttribute("class", "row")
 		for (let i = 0; i < length; i++) {
 			newRow.appendChild(this.createNewPixel(i, row, frame))
@@ -44,7 +44,7 @@ const board = {
 	create: function(width, height, frames) {
 		for (let i = 0; i < frames; i++) {
 			this.frames.push([])
-			const newBoard = document.createElement("div")
+			const newBoard = document.createElement("table")
 			if (i === 0) {
 				newBoard.setAttribute("class", "board")
 			} else {
