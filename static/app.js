@@ -79,7 +79,7 @@ const board = {
 	handleCanvasClick: function(e) {
 		const x = Math.floor(e.offsetX / 20)
 		const y = Math.floor(e.offsetY / 20)
-		this.frames[this.selectedFrame][y][x] = this.frames[this.selectedFrame][y][x] ? 0 : 1
+		this.frames[this.selectedFrame][y][x] = this.currentColor
 		this.drawFrame(this.frames[this.selectedFrame])
 	},
 
