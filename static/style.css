@@ -2,33 +2,6 @@ body {
 	background-color: lavender;
 }
 
-.pixel {
-	display: inline-block;
-	height: 20px;
-	width: 20px;
-	background-color: black;
-	border: 1px solid lavender;
-	visibility: inherit;
-}
-
-.white-pixel {
-	display: inline-block;
-	height: 20px;
-	width: 20px;
-	background-color: white;
-	border: 1px solid lavender;
-	visibility: inherit;
-}
-
-.row {
-	display: flex;
-	visibility: inherit;
-}
-
-.invisible-board {
-	display: none;	
-}
-
 #board-canvas {
 	height: 200px;
 	width: 200px;
