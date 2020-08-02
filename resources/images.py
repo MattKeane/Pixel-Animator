@@ -5,6 +5,10 @@ import uuid
 black = (0, 0, 0)
 white =(255, 255, 255)
 
+def hex_to_rgb(hex):
+	h = hex.lstrip("#")
+	return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+
 def draw_gif(frames, image_uuid):
 	images = []
 	for frame in frames:
@@ -12,8 +16,7 @@ def draw_gif(frames, image_uuid):
 		draw = ImageDraw.Draw(image)
 		for i in range(len(frame)):
 			for j in range(len(frame[i])):
-				colors = [black, white]
-				color = colors[frame[i][j]]
+				color = hex_to_rgb(frame[i][j])
 				draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
 		images.append(image)
 	images[0].save(

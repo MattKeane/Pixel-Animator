@@ -97,7 +97,6 @@ board.drawFrame(board.frames[board.selectedFrame])
 // event listeners
 
 canvas.addEventListener("mousedown", e => board.handleCanvasClick(e))
-document.getElementById("submit-button").addEventListener("click", e => console.log(board.frames))
-// document.getElementById("submit-button").addEventListener("click", e => board.submit())
+document.getElementById("submit-button").addEventListener("click", e => board.submit())
 document.getElementById("frame-select").addEventListener("change", e => board.handleSelectChange(e))
 document.getElementById("color-select").addEventListener("change", e => board.handleColorChange(e))
