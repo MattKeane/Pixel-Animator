@@ -16,21 +16,20 @@ const board = {
 	selectedFrame: 0,
 
 	// current color
-	currentColor: "#ffffff",
+	currentColor: "#000000",
 
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
 		ctx.beginPath()
 		ctx.rect(x, y, 20, 20)
-		ctx.fillStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`
+		ctx.fillStyle = color
 		ctx.fill()
 	},
 
 	// method for drawing a row of pixels on the canvas
 	drawRow: function(row, pixels) {
 		for (let i = 0; i < pixels.length; i++) {
-			const color = pixels[i] ? [255, 255, 255] : [0, 0, 0]
-			this.drawPixel(i * 20, row * 20, color)
+			this.drawPixel(i * 20, row * 20, pixels[i])
 		}
 	},
 
@@ -50,7 +49,7 @@ const board = {
 			for (let j = 0; j < height; j++) {
 				this.frames[i].push([])
 				for (let k = 0; k < width; k ++) {
-					this.frames[i][j].push(0)
+					this.frames[i][j].push("#000000")
 				}
 			}
 		}
@@ -98,6 +97,7 @@ board.drawFrame(board.frames[board.selectedFrame])
 // event listeners
 
 canvas.addEventListener("mousedown", e => board.handleCanvasClick(e))
-document.getElementById("submit-button").addEventListener("click", e => board.submit())
+document.getElementById("submit-button").addEventListener("click", e => console.log(board.frames))
+// document.getElementById("submit-button").addEventListener("click", e => board.submit())
 document.getElementById("frame-select").addEventListener("change", e => board.handleSelectChange(e))
 document.getElementById("color-select").addEventListener("change", e => board.handleColorChange(e))
