@@ -15,6 +15,9 @@ const board = {
 	// currently selected frame
 	selectedFrame: 0,
 
+	// current color
+	currentColor: "#ffffff",
+
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
 		ctx.beginPath()
@@ -79,6 +82,11 @@ const board = {
 		const y = Math.floor(e.offsetY / 20)
 		this.frames[this.selectedFrame][y][x] = this.frames[this.selectedFrame][y][x] ? 0 : 1
 		this.drawFrame(this.frames[this.selectedFrame])
+	},
+
+	handleColorChange: function(e) {
+		this.currentColor = e.target.value
+		console.log(`Current color: ${this.currentColor}`)
 	}
 }
 
@@ -92,3 +100,4 @@ board.drawFrame(board.frames[board.selectedFrame])
 canvas.addEventListener("mousedown", e => board.handleCanvasClick(e))
 document.getElementById("submit-button").addEventListener("click", e => board.submit())
 document.getElementById("frame-select").addEventListener("change", e => board.handleSelectChange(e))
+document.getElementById("color-select").addEventListener("change", e => board.handleColorChange(e))

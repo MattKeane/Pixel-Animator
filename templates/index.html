@@ -5,9 +5,11 @@
 	<title>PixelAnimator</title>
 </head>
 <body>
-	<div id="board-container"></div>
+	
 	<canvas id="board-canvas" height="200px" width="200px"></canvas>
+
 	<button id="submit-button">Submit</button>
+
 	<select name="frame" id="frame-select">
 		<option value="0">Frame 1</option>
 		<option value="1">Frame 2</option>
@@ -19,6 +21,16 @@
 		<option value="7">Frame 8</option>
 		<option value="8">Frame 9</option>
 		<option value="9">Frame 10</option>
+	</select>
+
+	<input 
+		type="color"
+		id="color-select"
+		name="color-select">
+	<label for="color-select">Color</label>
+	
+
 	<script src={{ url_for("static", filename="app.js") }}></script>
+
 </body>
 </html>
