@@ -31,6 +31,12 @@ const board = {
 		}
 	},
 
+	drawFrame: function(frame) {
+		for (let i = 0; i < frame.length; i++) {
+			this.drawRow(i, frame[i])
+		}
+	},
+
 	// method to create a new pixel in DOM and state
 	createNewPixel: function(x, y, frame) {
 		this.frames[frame][y].push(0)
@@ -112,7 +118,7 @@ const board = {
 board.create(10, 10, 10)
 
 // board.drawPixel(0, 0, [255, 0, 0])
-board.drawRow(0, board.frames[0][0])
+board.drawFrame(board.frames[0])
 
 document.getElementById("submit-button").addEventListener("click", e => board.submit())
 document.getElementById("frame-select").addEventListener("change", e => board.handleSelectChange(e))
