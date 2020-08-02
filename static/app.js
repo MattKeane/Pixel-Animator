@@ -19,9 +19,16 @@ const board = {
 	drawPixel: function(x, y, color) {
 		ctx.beginPath()
 		ctx.rect(x, y, 20, 20)
-		console.log(x + 20)
 		ctx.fillStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`
 		ctx.fill()
+	},
+
+	// method for drawing a row of pixels on the canvas
+	drawRow: function(row, pixels) {
+		for (let i = 0; i < pixels.length; i++) {
+			const color = pixels[i] ? [255, 255, 255] : [0, 0, 0]
+			this.drawPixel(i * 20, row * 20, color)
+		}
 	},
 
 	// method to create a new pixel in DOM and state
@@ -105,8 +112,7 @@ const board = {
 board.create(10, 10, 10)
 
 // board.drawPixel(0, 0, [255, 0, 0])
-board.drawPixel(20, 20, [255, 255, 255])
-board.drawPixel(40, 40, [0, 0, 0])
+board.drawRow(0, board.frames[0][0])
 
 document.getElementById("submit-button").addEventListener("click", e => board.submit())
 document.getElementById("frame-select").addEventListener("change", e => board.handleSelectChange(e))
