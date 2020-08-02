@@ -5,7 +5,7 @@ const ctx = canvas.getContext("2d")
 
 // canvas event handlers
 
-canvas.addEventListener("mousedown", e => console.log(e))
+
 
 const board = {
 
@@ -31,6 +31,7 @@ const board = {
 		}
 	},
 
+	// method to draw an entire frame
 	drawFrame: function(frame) {
 		for (let i = 0; i < frame.length; i++) {
 			this.drawRow(i, frame[i])
@@ -112,6 +113,11 @@ const board = {
 		document.getElementById(`frame-${this.selectedFrame}`).setAttribute("class", "invisible-board")
 		this.selectedFrame = e.target.value
 		document.getElementById(`frame-${e.target.value}`).setAttribute("class", "board")
+	},
+
+	handleCanvasClick: function(e) {
+		console.log(`x: ${Math.floor(e.offsetX / 20)}`)
+		console.log(`y: ${Math.floor(e.offsetY / 20)}`)
 	}
 }
 
@@ -120,5 +126,8 @@ board.create(10, 10, 10)
 // board.drawPixel(0, 0, [255, 0, 0])
 board.drawFrame(board.frames[0])
 
+// event listeners
+
+canvas.addEventListener("mousedown", e => board.handleCanvasClick(e))
 document.getElementById("submit-button").addEventListener("click", e => board.submit())
 document.getElementById("frame-select").addEventListener("change", e => board.handleSelectChange(e))
