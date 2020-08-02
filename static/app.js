@@ -76,14 +76,14 @@ const board = {
 			for (let j = 0; j < height; j++) {
 				newBoard.appendChild(this.createNewRow(j, width, i))
 			}
-			newBoard.addEventListener("mousedown", e => this.handleEvent(e))
+			newBoard.addEventListener("mousedown", e => this.handleDivClick(e))
 			document.getElementById("board-container").appendChild(newBoard)
 		}
 	},
 
 	// event handlers
 
-	handleEvent: function(e) {
+	handleDivClick: function(e) {
 		if (e.target.className === "pixel") {
 			e.target.setAttribute("class", "white-pixel")
 			this.frames[e.target.dataset.frame][e.target.dataset.y][e.target.dataset.x] = 1
@@ -116,15 +116,18 @@ const board = {
 	},
 
 	handleCanvasClick: function(e) {
-		console.log(`x: ${Math.floor(e.offsetX / 20)}`)
-		console.log(`y: ${Math.floor(e.offsetY / 20)}`)
+		console.log("Is sane")
+		const x = Math.floor(e.offsetX / 20)
+		const y = Math.floor(e.offsetY / 20)
+		this.frames[this.selectedFrame][y][x] = this.frames[this.selectedFrame][y][x] ? 0 : 1
+		this.drawFrame(this.frames[this.selectedFrame])
 	}
 }
 
 board.create(10, 10, 10)
 
 // board.drawPixel(0, 0, [255, 0, 0])
-board.drawFrame(board.frames[0])
+board.drawFrame(board.frames[board.selectedFrame])
 
 // event listeners
 
