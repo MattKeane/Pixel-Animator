@@ -1,3 +1,12 @@
+// defining Canvas Context
+
+const canvas = document.getElementById("board-canvas")
+const ctx = canvas.getContext("2d")
+
+// canvas event handlers
+
+canvas.addEventListener("mousedown", e => console.log(e))
+
 const board = {
 
 	// array to hold values representing pixels
@@ -6,7 +15,14 @@ const board = {
 	// currently selected frame
 	selectedFrame: 0,
 
-
+	// method for drawing a pixel on the canvas
+	drawPixel: function(x, y, color) {
+		ctx.beginPath()
+		ctx.rect(x, y, 20, 20)
+		console.log(x + 20)
+		ctx.fillStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`
+		ctx.fill()
+	},
 
 	// method to create a new pixel in DOM and state
 	createNewPixel: function(x, y, frame) {
@@ -87,6 +103,10 @@ const board = {
 }
 
 board.create(10, 10, 10)
+
+// board.drawPixel(0, 0, [255, 0, 0])
+board.drawPixel(20, 20, [255, 255, 255])
+board.drawPixel(40, 40, [0, 0, 0])
 
 document.getElementById("submit-button").addEventListener("click", e => board.submit())
 document.getElementById("frame-select").addEventListener("change", e => board.handleSelectChange(e))
