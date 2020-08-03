@@ -31,13 +31,19 @@ images = Blueprint("images", "images")
 
 @images.route("/", methods=["POST"])
 def new_image():
-	payload = request.get_json()
-	image_uuid = uuid.uuid4()
-	draw_gif(payload, image_uuid)
-	return jsonify(
-		data={"image_uuid": image_uuid},
-		message="GIF Created",
-		status=200), 200
+	try:
+		payload = request.get_json()
+		image_uuid = uuid.uuid4()
+		draw_gif(payload, image_uuid)
+		return jsonify(
+			data={"image_uuid": image_uuid},
+			message="GIF Created",
+			status=200), 200
+	except:
+		return jsonify(
+			data={},
+			message="An error occurred",
+			status=400), 400
 
 @images.route("/<image_name>", methods=["GET"])
 def get_image(image_name):
