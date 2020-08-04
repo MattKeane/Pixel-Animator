@@ -61,8 +61,12 @@ const board = {
 	// method to check if the next and prev buttons should be disabled
 
 	checkNextPrev: function() {
-		document.getElementById("prev-frame").disabled = this.selectedFrame <= 0
-		document.getElementById("next-frame").disabled = this.selectedFrame >= this.numberOfFrames - 1
+		const isFirstFrame = this.selectedFrame <= 0
+		const isLastFrame = this.selectedFrame >= this.numberOfFrames - 1
+		document.getElementById("prev-frame").disabled = isFirstFrame
+		document.getElementById("prev-copy").disabled = isFirstFrame
+		document.getElementById("next-frame").disabled = isLastFrame
+		document.getElementById("next-copy").disabled = isLastFrame
 	},
 
 	// method to handle changing selectedFrame
