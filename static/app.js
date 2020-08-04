@@ -123,7 +123,11 @@ const board = {
 	},
 
 	handleNextClick: function() {
-		this.changeSelectedFrame(this.selectedFrame + 1)
+		this.changeSelectedFrame(+this.selectedFrame + 1)
+	},
+
+	handlePrevClick: function() {
+		this.changeSelectedFrame(+this.selectedFrame - 1)
 	},
 
 	// initialize method
@@ -143,6 +147,7 @@ const board = {
 		document.getElementById("color-select").addEventListener("change", e => this.handleColorChange(e))
 		numberOfFramesInput.addEventListener("change", e => this.handleFrameTotalChange(e))
 		document.getElementById("next-frame").addEventListener("click", e => this.handleNextClick())
+		document.getElementById("prev-frame").addEventListener("click", e=> this.handlePrevClick())
 
 		// draw the board
 
