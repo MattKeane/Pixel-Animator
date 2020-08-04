@@ -96,7 +96,17 @@ const board = {
 	},
 
 	handleFrameTotalChange(e) {
-		console.log(e.target.value)
+		if (e.target.value > 64) {
+			e.target.value = 64
+		}
+		this.numberOfFrames = e.target.value
+		if (this.selectedFrame > this.numberOfFrames - 1) {
+			this.selectedFrame = this.numberOfFrames - 1
+			this.drawFrame(this.frames[this.selectedFrame])
+		}
+		const currentFrame = document.getElementById("current-frame")
+		currentFrame.max = this.numberOfFrames
+		currentFrame.value = this.selectedFrame + 1
 	},
 
 	// initialize method
