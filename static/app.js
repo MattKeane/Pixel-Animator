@@ -160,7 +160,9 @@ const board = {
 		document.getElementById("color-select").addEventListener("change", e => this.handleColorChange(e))
 		numberOfFramesInput.addEventListener("change", e => this.handleFrameTotalChange(e))
 		document.getElementById("next-frame").addEventListener("click", e => this.handleNextClick())
-		document.getElementById("prev-frame").addEventListener("click", e=> this.handlePrevClick())
+		document.getElementById("prev-frame").addEventListener("click", e => this.handlePrevClick())
+		document.getElementById("prev-copy").addEventListener("click", e => this.copyFrame(this.selectedFrame - 1))
+		document.getElementById("next-copy").addEventListener("click", e => this.copyFrame(this.selectedFrame + 1))
 
 		// draw the board
 
