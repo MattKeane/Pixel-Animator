@@ -3,9 +3,9 @@
 const canvas = document.getElementById("board-canvas")
 const ctx = canvas.getContext("2d")
 
-// canvas event handlers
+// default values
 
-
+const defaultNumberOfFrames = 10
 
 const board = {
 
@@ -19,7 +19,7 @@ const board = {
 	currentColor: "#000000",
 
 	// number of frames the GIF will have
-	numberOfFrames: 10,
+	numberOfFrames: defaultNumberOfFrames,
 
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
@@ -74,6 +74,8 @@ const board = {
 		}
 	},
 
+	 // event handlers
+
 	handleSelectChange: function(e) {
 		if (e.target.value > this.numberOfFrames) {
 			e.target.value = this.numberOfFrames
@@ -91,17 +93,33 @@ const board = {
 
 	handleColorChange: function(e) {
 		this.currentColor = e.target.value
+	},
+
+	handleFrameTotalChange(e) {
+		console.log(e.target.value)
+	},
+
+	// initialize method
+
+	initialize: function() {
+		this.create(10, 10, 64)
+		this.drawFrame(this.frames[this.selectedFrame])
+
+		const numberOfFramesInput = document.getElementById("frame-total")
+		numberOfFramesInput.value = this.numberOfFrames
+
+		// event listeners
+
+		canvas.addEventListener("mousedown", e => this.handleCanvasClick(e))
+		document.getElementById("submit-button").addEventListener("click", e => this.submit())
+		document.getElementById("current-frame").addEventListener("change", e => this.handleSelectChange(e))
+		document.getElementById("color-select").addEventListener("change", e => this.handleColorChange(e))
+		numberOfFramesInput.addEventListener("change", e => this.handleFrameTotalChange(e))
+
+		// draw the board
+
+		this.drawFrame(this.frames[this.selectedFrame])
 	}
 }
 
-board.create(10, 10, 10)
-
-// board.drawPixel(0, 0, [255, 0, 0])
-board.drawFrame(board.frames[board.selectedFrame])
-
-// event listeners
-
-canvas.addEventListener("mousedown", e => board.handleCanvasClick(e))
-document.getElementById("submit-button").addEventListener("click", e => board.submit())
-document.getElementById("current-frame").addEventListener("change", e => board.handleSelectChange(e))
-document.getElementById("color-select").addEventListener("change", e => board.handleColorChange(e))
+board.initialize()
