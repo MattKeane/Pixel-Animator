@@ -58,9 +58,22 @@ const board = {
 		}
 	},
 
+	// method to check if the next and prev buttons should be disabled
+
 	checkNextPrev: function() {
 		document.getElementById("prev-frame").disabled = this.selectedFrame <= 0
 		document.getElementById("next-frame").disabled = this.selectedFrame >= this.numberOfFrames - 1
+	},
+
+	// method to handle changing selectedFrame
+
+	changeSelectedFrame: function(frameNumber) {
+		if (frameNumber >= 0 && frameNumber <= this.numberOfFrames - 1) {
+			this.selectedFrame = +frameNumber
+		}
+		this.checkNextPrev()
+		document.getElementById("current-frame").value = this.selectedFrame + 1
+		this.drawFrame(this.frames[this.selectedFrame])
 	},
 
 	// event handlers
@@ -81,11 +94,7 @@ const board = {
 
 
 	handleSelectChange: function(e) {
-		if (e.target.value > this.numberOfFrames) {
-			e.target.value = this.numberOfFrames
-		}
-		this.selectedFrame = e.target.value - 1
-		this.drawFrame(this.frames[this.selectedFrame])
+		this.changeSelectedFrame(e.target.value - 1)
 	},
 
 	handleCanvasClick: function(e) {
@@ -113,12 +122,8 @@ const board = {
 		currentFrame.value = this.selectedFrame + 1
 	},
 
-	handleNextClick: function(e) {
-		if (this.selectedFrame < this.numberOfFrames - 1) {
-			this.selectedFrame++
-			this.drawFrame(this.frames[this.selectedFrame])
-		}
-		this.checkNextPrev()
+	handleNextClick: function() {
+		this.changeSelectedFrame(this.selectedFrame + 1)
 	},
 
 	// initialize method
@@ -137,7 +142,7 @@ const board = {
 		document.getElementById("current-frame").addEventListener("change", e => this.handleSelectChange(e))
 		document.getElementById("color-select").addEventListener("change", e => this.handleColorChange(e))
 		numberOfFramesInput.addEventListener("change", e => this.handleFrameTotalChange(e))
-		document.getElementById("next-frame").addEventListener("click", e => this.handleNextClick(e))
+		document.getElementById("next-frame").addEventListener("click", e => this.handleNextClick())
 
 		// draw the board
 
