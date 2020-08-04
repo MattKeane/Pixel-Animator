@@ -58,6 +58,11 @@ const board = {
 		}
 	},
 
+	checkNextPrev: function() {
+		document.getElementById("prev-frame").disabled = this.selectedFrame <= 0
+		document.getElementById("next-frame").disabled = this.selectedFrame >= this.numberOfFrames - 1
+	},
+
 	// event handlers
 
 	submit: async function() {
@@ -94,7 +99,7 @@ const board = {
 		this.currentColor = e.target.value
 	},
 
-	handleFrameTotalChange(e) {
+	handleFrameTotalChange: function(e) {
 		if (e.target.value > 64) {
 			e.target.value = 64
 		}
@@ -106,6 +111,10 @@ const board = {
 		const currentFrame = document.getElementById("current-frame")
 		currentFrame.max = this.numberOfFrames
 		currentFrame.value = this.selectedFrame + 1
+	},
+
+	handleNextClick: function(e) {
+		console.log("Next clicked!")
 	},
 
 	// initialize method
@@ -124,6 +133,7 @@ const board = {
 		document.getElementById("current-frame").addEventListener("change", e => this.handleSelectChange(e))
 		document.getElementById("color-select").addEventListener("change", e => this.handleColorChange(e))
 		numberOfFramesInput.addEventListener("change", e => this.handleFrameTotalChange(e))
+		document.getElementById("next-frame").addEventListener("click", e => this.handleNextClick(e))
 
 		// draw the board
 

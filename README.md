@@ -12,5 +12,5 @@ $pip install -r requirements.txt
 ## Running
 
 ```
-python3 app.py
+$python3 app.py
 ```
