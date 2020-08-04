@@ -63,7 +63,7 @@ const board = {
 	submit: async function() {
 		const submitResponse = await fetch("/images/", {
 			method: "POST",
-			body: JSON.stringify(this.frames),
+			body: JSON.stringify(this.frames.slice(0, this.numberOfFrames)),
 			headers: {
 				"Content-Type": "application/json"
 			}
@@ -74,7 +74,6 @@ const board = {
 		}
 	},
 
-	 // event handlers
 
 	handleSelectChange: function(e) {
 		if (e.target.value > this.numberOfFrames) {
