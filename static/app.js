@@ -114,7 +114,11 @@ const board = {
 	},
 
 	handleNextClick: function(e) {
-		console.log("Next clicked!")
+		if (this.selectedFrame < this.numberOfFrames - 1) {
+			this.selectedFrame++
+			this.drawFrame(this.frames[this.selectedFrame])
+		}
+		this.checkNextPrev()
 	},
 
 	// initialize method
