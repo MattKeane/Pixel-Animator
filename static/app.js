@@ -76,6 +76,15 @@ const board = {
 		this.drawFrame(this.frames[this.selectedFrame])
 	},
 
+	// method to copy a given frame number to the current frame
+
+	copyFrame: function(frameNumber) {
+		if (this.frames[frameNumber]) {
+			this.frames[this.selectedFrame] = JSON.parse(JSON.stringify(this.frames[frameNumber]))
+		}
+		this.drawFrame(this.frames[this.selectedFrame])
+	},
+
 	// event handlers
 
 	submit: async function() {
