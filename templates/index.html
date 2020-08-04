@@ -10,23 +10,20 @@
 
 	<button id="submit-button">Submit</button>
 
-	<select name="frame" id="frame-select">
-		<option value="0">Frame 1</option>
-		<option value="1">Frame 2</option>
-		<option value="2">Frame 3</option>
-		<option value="3">Frame 4</option>
-		<option value="4">Frame 5</option>
-		<option value="5">Frame 6</option>
-		<option value="6">Frame 7</option>
-		<option value="7">Frame 8</option>
-		<option value="8">Frame 9</option>
-		<option value="9">Frame 10</option>
-	</select>
+	<label for="current-frame">Current Frame:</label>
+
+	<input 
+		type="number" 
+		id="current-frame" 
+		name="current-frame" 
+		min ="1" 
+		max="10" 
+		value="1" />
 
 	<input 
 		type="color"
 		id="color-select"
-		name="color-select">
+		name="color-select" />
 	<label for="color-select">Color</label>
 	
 

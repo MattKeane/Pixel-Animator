@@ -18,6 +18,9 @@ const board = {
 	// current color
 	currentColor: "#000000",
 
+	// number of frames the GIF will have
+	numberOfFrames: 10,
+
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
 		ctx.beginPath()
@@ -72,7 +75,10 @@ const board = {
 	},
 
 	handleSelectChange: function(e) {
-		this.selectedFrame = e.target.value
+		if (e.target.value > this.numberOfFrames) {
+			e.target.value = this.numberOfFrames
+		}
+		this.selectedFrame = e.target.value - 1
 		this.drawFrame(this.frames[this.selectedFrame])
 	},
 
@@ -85,7 +91,6 @@ const board = {
 
 	handleColorChange: function(e) {
 		this.currentColor = e.target.value
-		console.log(`Current color: ${this.currentColor}`)
 	}
 }
 
@@ -98,5 +103,5 @@ board.drawFrame(board.frames[board.selectedFrame])
 
 canvas.addEventListener("mousedown", e => board.handleCanvasClick(e))
 document.getElementById("submit-button").addEventListener("click", e => board.submit())
-document.getElementById("frame-select").addEventListener("change", e => board.handleSelectChange(e))
+document.getElementById("current-frame").addEventListener("change", e => board.handleSelectChange(e))
 document.getElementById("color-select").addEventListener("change", e => board.handleColorChange(e))
