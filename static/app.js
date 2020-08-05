@@ -92,7 +92,11 @@ const board = {
 	// interval tick for animations,
 
 	tick: function() {
-		console.log("Tick!")
+		if (this.selectedFrame < this.numberOfFrames - 1) {
+			this.changeSelectedFrame(+this.selectedFrame + 1)
+		} else {
+			this.changeSelectedFrame(0)
+		}
 	},
 
 	// event handlers
@@ -152,7 +156,7 @@ const board = {
 	startAnimation: function(e) {
 		e.target.disabled = "true"
 		document.getElementById("stop-animation").disabled = false
-		this.interval = window.setInterval(this.tick, 1000)
+		this.interval = window.setInterval(() => {this.tick()}, 40)
 	},
 
 	// initialize method
