@@ -159,6 +159,12 @@ const board = {
 		this.interval = window.setInterval(() => {this.tick()}, 40)
 	},
 
+	stopAnimation: function(e) {
+		window.clearInterval(this.interval)
+		e.target.disabled = "true"
+		document.getElementById("start-animation").disabled = false
+	},
+
 	// initialize method
 
 	initialize: function() {
@@ -180,6 +186,7 @@ const board = {
 		document.getElementById("prev-copy").addEventListener("click", e => this.copyFrame(this.selectedFrame - 1))
 		document.getElementById("next-copy").addEventListener("click", e => this.copyFrame(this.selectedFrame + 1))
 		document.getElementById("start-animation").addEventListener("click", e => this.startAnimation(e))
+		document.getElementById("stop-animation").addEventListener("click", e => this.stopAnimation(e))
 
 		// draw the board
 
