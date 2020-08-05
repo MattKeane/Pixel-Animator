@@ -89,6 +89,12 @@ const board = {
 		this.drawFrame(this.frames[this.selectedFrame])
 	},
 
+	// interval tick for animations,
+
+	tick: function() {
+		console.log("Tick!")
+	},
+
 	// event handlers
 
 	submit: async function() {
@@ -143,6 +149,12 @@ const board = {
 		this.changeSelectedFrame(+this.selectedFrame - 1)
 	},
 
+	startAnimation: function(e) {
+		e.target.disabled = "true"
+		document.getElementById("stop-animation").disabled = false
+		this.interval = window.setInterval(this.tick, 1000)
+	},
+
 	// initialize method
 
 	initialize: function() {
@@ -163,6 +175,7 @@ const board = {
 		document.getElementById("prev-frame").addEventListener("click", e => this.handlePrevClick())
 		document.getElementById("prev-copy").addEventListener("click", e => this.copyFrame(this.selectedFrame - 1))
 		document.getElementById("next-copy").addEventListener("click", e => this.copyFrame(this.selectedFrame + 1))
+		document.getElementById("start-animation").addEventListener("click", e => this.startAnimation(e))
 
 		// draw the board
 
