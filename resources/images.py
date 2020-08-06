@@ -9,7 +9,7 @@ def hex_to_rgb(hex):
 	h = hex.lstrip("#")
 	return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
 
-def draw_gif(frames, image_uuid):
+def draw_gif(frames, image_uuid, delay=40):
 	images = []
 	for frame in frames:
 		image = Image.new("RGB", (200, 200), black)
@@ -24,7 +24,7 @@ def draw_gif(frames, image_uuid):
 		save_all=True, 
 		append_images=images[1:],
 		optimize=False,
-		duration=40,
+		duration=delay,
 		loop=0)
 
 images = Blueprint("images", "images")
@@ -34,7 +34,7 @@ def new_image():
 	try:
 		payload = request.get_json()
 		image_uuid = uuid.uuid4()
-		draw_gif(payload, image_uuid)
+		draw_gif(payload["frames"], image_uuid, delay=payload["delay"])
 		return jsonify(
 			data={"image_uuid": image_uuid},
 			message="GIF Created",
