@@ -38,7 +38,9 @@ const board = {
 	// method for drawing a row of pixels on the canvas
 	drawRow: function(row, pixels) {
 		for (let i = 0; i < pixels.length; i++) {
-			this.drawPixel(i * 20, row * 20, pixels[i])
+			if (pixels[i]) {
+				this.drawPixel(i * 20, row * 20, pixels[i])
+			}
 		}
 	},
 
@@ -58,7 +60,7 @@ const board = {
 			for (let j = 0; j < height; j++) {
 				this.frames[i].push([])
 				for (let k = 0; k < width; k ++) {
-					this.frames[i][j].push("#000000")
+					this.frames[i][j].push(false)
 				}
 			}
 		}
