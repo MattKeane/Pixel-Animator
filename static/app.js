@@ -5,7 +5,10 @@ const ctx = canvas.getContext("2d")
 
 // default values
 
-const defaultNumberOfFrames = 10
+const defaultSettings = {
+	numberOfFrames: 10,
+	delay: 40
+}
 
 const board = {
 
@@ -19,7 +22,10 @@ const board = {
 	currentColor: "#000000",
 
 	// number of frames the GIF will have
-	numberOfFrames: defaultNumberOfFrames,
+	numberOfFrames: defaultSettings.numberOfFrames,
+
+	// millesecond delay between frames
+	delay: defaultSettings.delay,
 
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
