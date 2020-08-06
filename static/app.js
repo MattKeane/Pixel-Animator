@@ -162,7 +162,7 @@ const board = {
 	startAnimation: function(e) {
 		e.target.disabled = "true"
 		document.getElementById("stop-animation").disabled = false
-		this.interval = window.setInterval(() => {this.tick()}, 40)
+		this.interval = window.setInterval(() => {this.tick()}, this.delay)
 	},
 
 	stopAnimation: function(e) {
