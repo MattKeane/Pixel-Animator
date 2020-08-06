@@ -109,21 +109,20 @@ const board = {
 
 	submit: async function() {
 		const payload = JSON.stringify({
-			"delay": this.delay,
+			"delay": +this.delay,
 			"frames": this.frames.slice(0, this.numberOfFrames)
 		})
-		console.log(payload)
-		// const submitResponse = await fetch("/images/", {
-		// 	method: "POST",
-		// 	body: payload,
-		// 	headers: {
-		// 		"Content-Type": "application/json"
-		// 	}
-		// })
-		// const submitJson = await submitResponse.json()
-		// if (submitJson.status === 200) {
-		// 	window.open(`/images/${submitJson.data.image_uuid}`, "_blank")
-		// }
+		const submitResponse = await fetch("/images/", {
+			method: "POST",
+			body: payload,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		const submitJson = await submitResponse.json()
+		if (submitJson.status === 200) {
+			window.open(`/images/${submitJson.data.image_uuid}`, "_blank")
+		}
 	},
 
 
