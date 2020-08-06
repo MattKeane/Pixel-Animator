@@ -171,6 +171,10 @@ const board = {
 		document.getElementById("start-animation").disabled = false
 	},
 
+	changeDelay: function(e) {
+		console.log(e.target.value)
+	},
+
 	// initialize method
 
 	initialize: function() {
@@ -193,6 +197,7 @@ const board = {
 		document.getElementById("next-copy").addEventListener("click", e => this.copyFrame(this.selectedFrame + 1))
 		document.getElementById("start-animation").addEventListener("click", e => this.startAnimation(e))
 		document.getElementById("stop-animation").addEventListener("click", e => this.stopAnimation(e))
+		document.getElementById("delay").addEventListener("change", e => this.changeDelay(e))
 
 		// draw the board
 
