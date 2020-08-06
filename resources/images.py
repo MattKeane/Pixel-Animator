@@ -2,22 +2,27 @@ from flask import Blueprint, request, jsonify, send_from_directory
 from PIL import Image, ImageDraw
 import uuid
 
-black = (0, 0, 0)
-white =(255, 255, 255)
 
 def hex_to_rgb(hex):
-	h = hex.lstrip("#")
-	return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+	h = hex.lstrip("#") + "01"
+	return tuple(int(h[i:i+2], 16) for i in (0, 2, 4, 6))
 
 def draw_gif(frames, image_uuid, delay=40):
 	images = []
 	for frame in frames:
-		image = Image.new("RGB", (200, 200), black)
+		image = Image.new("RGBA", (200, 200), (0, 0, 0, 0))
+		blank_image = Image.new("L", (200, 200), 0)
+		draw_blank = ImageDraw.Draw(blank_image)
+		draw_blank.rectangle((0, 0, 200, 200), fill=255)
+		image.putalpha(blank_image)
 		draw = ImageDraw.Draw(image)
 		for i in range(len(frame)):
 			for j in range(len(frame[i])):
-				color = hex_to_rgb(frame[i][j])
-				draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
+				if frame[i][j]:
+					color = hex_to_rgb(frame[i][j])
+					draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
+				else:
+					print("Empty pixel!")
 		images.append(image)
 	images[0].save(
 		f"static/images/{image_uuid}.gif", 
@@ -25,6 +30,7 @@ def draw_gif(frames, image_uuid, delay=40):
 		append_images=images[1:],
 		optimize=False,
 		duration=delay,
+		transparency=0,
 		loop=0)
 
 images = Blueprint("images", "images")
@@ -33,6 +39,7 @@ images = Blueprint("images", "images")
 def new_image():
 	try:
 		payload = request.get_json()
+		print(payload)
 		image_uuid = uuid.uuid4()
 		draw_gif(payload["frames"], image_uuid, delay=payload["delay"])
 		return jsonify(

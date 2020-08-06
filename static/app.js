@@ -46,6 +46,7 @@ const board = {
 
 	// method to draw an entire frame
 	drawFrame: function(frame) {
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
 		for (let i = 0; i < frame.length; i++) {
 			this.drawRow(i, frame[i])
 		}
@@ -110,6 +111,7 @@ const board = {
 	// event handlers
 
 	submit: async function() {
+		console.log(this.frames)
 		const payload = JSON.stringify({
 			"delay": +this.delay,
 			"frames": this.frames.slice(0, this.numberOfFrames)
