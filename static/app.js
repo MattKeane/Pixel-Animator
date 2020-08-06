@@ -172,7 +172,14 @@ const board = {
 	},
 
 	changeDelay: function(e) {
-		console.log(e.target.value)
+		if (e.target.value >= 1 && e.target.value <= 2000) {
+			this.delay = e.target.value
+		} else if (e.target.value < 1) {
+			this.delay = 1
+		} else {
+			this.delay = 2000
+		}
+		e.target.value = this.delay
 	},
 
 	// initialize method
