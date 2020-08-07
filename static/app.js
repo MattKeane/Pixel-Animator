@@ -7,7 +7,8 @@ const ctx = canvas.getContext("2d")
 
 const defaultSettings = {
 	numberOfFrames: 10,
-	delay: 40
+	delay: 40,
+	mode: "draw"
 }
 
 const board = {
@@ -26,6 +27,9 @@ const board = {
 
 	// millesecond delay between frames
 	delay: defaultSettings.delay,
+
+	// current mode (draw or erase)
+	mode: defaultSettings.mode,
 
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
@@ -76,6 +80,14 @@ const board = {
 		document.getElementById("prev-copy").disabled = isFirstFrame
 		document.getElementById("next-frame").disabled = isLastFrame
 		document.getElementById("next-copy").disabled = isLastFrame
+	},
+
+	// method to check if the draw and erase buttons should be disabled
+	checkDrawErase: function() {
+		const drawButton = document.getElementById("draw-button")
+		const eraseButton = document.getElementById("erase-button")
+		drawButton.disabled = this.mode === "draw"
+		eraseButton.disabled = this.mode === "erase"
 	},
 
 	// method to handle changing selectedFrame
@@ -189,6 +201,16 @@ const board = {
 		e.target.value = this.delay
 	},
 
+	handleDrawClick: function() {
+		this.mode = "draw"
+		this.checkDrawErase()
+	},
+
+	handleEraseClick: function() {
+		this.mode = "erase"
+		this.checkDrawErase()
+	},
+
 	// initialize method
 
 	initialize: function() {
@@ -212,6 +234,8 @@ const board = {
 		document.getElementById("start-animation").addEventListener("click", e => this.startAnimation(e))
 		document.getElementById("stop-animation").addEventListener("click", e => this.stopAnimation(e))
 		document.getElementById("delay").addEventListener("change", e => this.changeDelay(e))
+		document.getElementById("draw-button").addEventListener("click", e => this.handleDrawClick())
+		document.getElementById("erase-button").addEventListener("click", e => this.handleEraseClick())
 
 		// draw the board
 
