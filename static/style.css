@@ -7,3 +7,8 @@ body {
 	width: 200px;
 	border: 1px double red;
 }
+
+#canvas-container {
+	display: inline-flex;
+	background-image: url("./assets/background.svg");
+}
