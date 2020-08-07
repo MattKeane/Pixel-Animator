@@ -21,8 +21,6 @@ def draw_gif(frames, image_uuid, delay=40):
 				if frame[i][j]:
 					color = hex_to_rgb(frame[i][j])
 					draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
-				else:
-					print("Empty pixel!")
 		images.append(image)
 	images[0].save(
 		f"static/images/{image_uuid}.gif", 
@@ -31,6 +29,7 @@ def draw_gif(frames, image_uuid, delay=40):
 		optimize=False,
 		duration=delay,
 		transparency=0,
+		disposal=2,
 		loop=0)
 
 images = Blueprint("images", "images")
@@ -39,7 +38,6 @@ images = Blueprint("images", "images")
 def new_image():
 	try:
 		payload = request.get_json()
-		print(payload)
 		image_uuid = uuid.uuid4()
 		draw_gif(payload["frames"], image_uuid, delay=payload["delay"])
 		return jsonify(
