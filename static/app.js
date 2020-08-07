@@ -46,7 +46,7 @@ const board = {
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
 		ctx.beginPath()
-		ctx.rect(x, y, 20, 20)
+		ctx.rect(x, y, this.pixelSize, this.pixelSize)
 		ctx.fillStyle = color
 		ctx.fill()
 	},
@@ -55,7 +55,7 @@ const board = {
 	drawRow: function(row, pixels) {
 		for (let i = 0; i < pixels.length; i++) {
 			if (pixels[i]) {
-				this.drawPixel(i * 20, row * 20, pixels[i])
+				this.drawPixel(i * this.pixelSize, row * this.pixelSize, pixels[i])
 			}
 		}
 	},
@@ -70,6 +70,7 @@ const board = {
 
 
 	// method to initialize the board
+	// width and height are in pseudopixels
 
 	create: function(width, height, frames) {
 		for (let i = 0; i < frames; i++) {
@@ -158,8 +159,8 @@ const board = {
 	},
 
 	handleCanvasClick: function(e) {
-		const x = Math.floor(e.offsetX / 20)
-		const y = Math.floor(e.offsetY / 20)
+		const x = Math.floor(e.offsetX / this.pixelSize)
+		const y = Math.floor(e.offsetY / this.pixelSize)
 		if (this.mode === "draw") {
 			this.frames[this.selectedFrame][y][x] = this.currentColor
 		} else {
@@ -230,7 +231,9 @@ const board = {
 	// initialize method
 
 	initialize: function() {
-		this.create(10, 10, 64)
+		const boardWidth = Math.ceil(this.width / this.pixelSize)
+		const boardHeight = Math.ceil(this.height / this.pixelSize)
+		this.create(boardWidth, boardHeight, 64)
 		this.drawFrame(this.frames[this.selectedFrame])
 
 		const numberOfFramesInput = document.getElementById("frame-total")
