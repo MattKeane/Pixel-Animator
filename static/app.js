@@ -8,7 +8,10 @@ const ctx = canvas.getContext("2d")
 const defaultSettings = {
 	numberOfFrames: 10,
 	delay: 40,
-	mode: "draw"
+	mode: "draw",
+	pixelSize: 10,
+	height: 200,
+	width: 200
 }
 
 const board = {
@@ -30,6 +33,15 @@ const board = {
 
 	// current mode (draw or erase)
 	mode: defaultSettings.mode,
+
+	// dimensions of pseudopixels (in actual pixels)
+	pixelSize: defaultSettings.pixelSize,
+
+	// height of the board in pixels
+	height: defaultSettings.height,
+
+	// width of the board in pixels
+	width: defaultSettings.width,
 
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
