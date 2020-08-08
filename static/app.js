@@ -138,7 +138,10 @@ const board = {
 	submit: async function() {
 		const payload = JSON.stringify({
 			"delay": +this.delay,
-			"frames": this.frames.slice(0, this.numberOfFrames)
+			"frames": this.frames.slice(0, this.numberOfFrames),
+			"pixelSize": +this.pixelSize,
+			"width": +this.width,
+			"height": +this.height
 		})
 		const submitResponse = await fetch("/images/", {
 			method: "POST",
