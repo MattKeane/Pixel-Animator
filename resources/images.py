@@ -7,20 +7,23 @@ def hex_to_rgb(hex):
 	h = hex.lstrip("#") + "01"
 	return tuple(int(h[i:i+2], 16) for i in (0, 2, 4, 6))
 
-def draw_gif(frames, image_uuid, delay=40):
+def draw_gif(frames, image_uuid, delay=40, width=200, height=200, pixel_size=5):
 	images = []
 	for frame in frames:
-		image = Image.new("RGBA", (200, 200), (0, 0, 0, 0))
-		blank_image = Image.new("L", (200, 200), 0)
+		image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+		blank_image = Image.new("L", (width, height), 0)
 		draw_blank = ImageDraw.Draw(blank_image)
-		draw_blank.rectangle((0, 0, 200, 200), fill=255)
+		draw_blank.rectangle((0, 0, width, height), fill=255)
 		image.putalpha(blank_image)
 		draw = ImageDraw.Draw(image)
 		for i in range(len(frame)):
 			for j in range(len(frame[i])):
 				if frame[i][j]:
 					color = hex_to_rgb(frame[i][j])
-					draw.rectangle([(j * 20, i * 20), (j * 20 + 20), (i * 20 + 20)], outline=color, fill=color)
+					draw.rectangle(
+						[(j * pixel_size, i * pixel_size), (j * pixel_size + pixel_size), (i * pixel_size + pixel_size)], 
+						outline=color, 
+						fill=color)
 		images.append(image)
 	images[0].save(
 		f"static/images/{image_uuid}.gif", 
@@ -39,7 +42,13 @@ def new_image():
 	try:
 		payload = request.get_json()
 		image_uuid = uuid.uuid4()
-		draw_gif(payload["frames"], image_uuid, delay=payload["delay"])
+		draw_gif(
+			frames=payload["frames"], 
+			image_uuid=image_uuid, 
+			delay=payload["delay"],
+			width=payload["width"],
+			height=payload["height"],
+			pixel_size=payload["pixelSize"])
 		return jsonify(
 			data={"image_uuid": image_uuid},
 			message="GIF Created",
