@@ -43,6 +43,9 @@ const board = {
 	// width of the board in pixels
 	width: defaultSettings.width,
 
+	// is the user currently drawing
+	drawing: false,
+
 	// method for drawing a pixel on the canvas
 	drawPixel: function(x, y, color) {
 		ctx.beginPath()
@@ -133,6 +136,19 @@ const board = {
 		}
 	},
 
+	// method to draw on canvas
+
+	drawOnCanvas: function(e) {
+		const x = Math.floor(e.offsetX / this.pixelSize)
+		const y = Math.floor(e.offsetY / this.pixelSize)
+		if (this.mode === "draw") {
+			this.frames[this.selectedFrame][y][x] = this.currentColor
+		} else {
+			this.frames[this.selectedFrame][y][x] = false
+		}		
+		this.drawFrame(this.frames[this.selectedFrame])		
+	},
+
 	// event handlers
 
 	submit: async function() {
@@ -162,14 +178,14 @@ const board = {
 	},
 
 	handleCanvasClick: function(e) {
-		const x = Math.floor(e.offsetX / this.pixelSize)
-		const y = Math.floor(e.offsetY / this.pixelSize)
-		if (this.mode === "draw") {
-			this.frames[this.selectedFrame][y][x] = this.currentColor
-		} else {
-			this.frames[this.selectedFrame][y][x] = false
-		}		
-		this.drawFrame(this.frames[this.selectedFrame])
+		this.drawing = true
+		this.drawOnCanvas(e)
+	},
+
+	handleCanvasMouseMove: function(e) {
+		if (this.drawing) {
+			this.drawOnCanvas(e)
+		}
 	},
 
 	handleColorChange: function(e) {
@@ -245,6 +261,8 @@ const board = {
 		// event listeners
 
 		canvas.addEventListener("mousedown", e => this.handleCanvasClick(e))
+		canvas.addEventListener("mousemove", e => this.handleCanvasMouseMove(e))
+		document.addEventListener("mouseup", e => {this.drawing = false})
 		document.getElementById("submit-button").addEventListener("click", e => this.submit())
 		document.getElementById("current-frame").addEventListener("change", e => this.handleSelectChange(e))
 		document.getElementById("color-select").addEventListener("change", e => this.handleColorChange(e))
