@@ -155,7 +155,6 @@ const board = {
 	// event handlers
 
 	submit: async function() {
-		console.log(this.frames)
 		const payload = JSON.stringify({
 			"delay": +this.delay,
 			"frames": this.frames.slice(0, this.numberOfFrames),
