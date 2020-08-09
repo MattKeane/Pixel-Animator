@@ -141,17 +141,21 @@ const board = {
 	drawOnCanvas: function(e) {
 		const x = Math.floor(e.offsetX / this.pixelSize)
 		const y = Math.floor(e.offsetY / this.pixelSize)
-		if (this.mode === "draw") {
-			this.frames[this.selectedFrame][y][x] = this.currentColor
-		} else {
-			this.frames[this.selectedFrame][y][x] = false
-		}		
+		const inRange = (x >= 0 && x <= this.width) && (y >= 0 && y <= this.height)
+		if (inRange) {
+			if (this.mode === "draw") {
+				this.frames[this.selectedFrame][y][x] = this.currentColor
+			} else {
+				this.frames[this.selectedFrame][y][x] = false
+			}	
+		}	
 		this.drawFrame(this.frames[this.selectedFrame])		
 	},
 
 	// event handlers
 
 	submit: async function() {
+		console.log(this.frames)
 		const payload = JSON.stringify({
 			"delay": +this.delay,
 			"frames": this.frames.slice(0, this.numberOfFrames),
