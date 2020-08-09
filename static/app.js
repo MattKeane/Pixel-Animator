@@ -139,10 +139,10 @@ const board = {
 	// method to draw on canvas
 
 	drawOnCanvas: function(e) {
-		const x = Math.floor(e.offsetX / this.pixelSize)
-		const y = Math.floor(e.offsetY / this.pixelSize)
-		const inRange = (x >= 0 && x <= this.width) && (y >= 0 && y <= this.height)
+		const inRange = (e.offsetX >= 0 && e.offsetX <= this.width) && (e.offsetY >= 0 && e.offsetY <= this.height)
 		if (inRange) {
+			const x = Math.floor(e.offsetX / this.pixelSize)
+			const y = Math.floor(e.offsetY / this.pixelSize)
 			if (this.mode === "draw") {
 				this.frames[this.selectedFrame][y][x] = this.currentColor
 			} else {
