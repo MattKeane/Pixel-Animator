@@ -139,7 +139,7 @@ const board = {
 	// method to draw on canvas
 
 	drawOnCanvas: function(e) {
-		const inRange = (e.offsetX >= 0 && e.offsetX <= this.width) && (e.offsetY >= 0 && e.offsetY <= this.height)
+		const inRange = (e.offsetX >= 0 && e.offsetX < this.width) && (e.offsetY >= 0 && e.offsetY < this.height)
 		if (inRange) {
 			const x = Math.floor(e.offsetX / this.pixelSize)
 			const y = Math.floor(e.offsetY / this.pixelSize)
