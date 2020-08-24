@@ -13,8 +13,6 @@ def draw_gif(frames, image_uuid, delay=40, width=200, height=200, pixel_size=5):
 		image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
 		blank_image = Image.new("L", (width, height), 0)
 		draw_blank = ImageDraw.Draw(blank_image)
-		draw_blank.rectangle((0, 0, width, height), fill=255)
-		image.putalpha(blank_image)
 		draw = ImageDraw.Draw(image)
 		for i in range(len(frame)):
 			for j in range(len(frame[i])):
@@ -24,6 +22,11 @@ def draw_gif(frames, image_uuid, delay=40, width=200, height=200, pixel_size=5):
 						[(j * pixel_size, i * pixel_size), (j * pixel_size + pixel_size), (i * pixel_size + pixel_size)], 
 						outline=color, 
 						fill=color)
+				else:
+					draw_blank.rectangle(
+						[(j * pixel_size, i * pixel_size), (j * pixel_size + pixel_size), (i * pixel_size + pixel_size)],
+						fill=255)
+		image.putalpha(blank_image)
 		images.append(image)
 	images[0].save(
 		f"static/images/{image_uuid}.gif", 
