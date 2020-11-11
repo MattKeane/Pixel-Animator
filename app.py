@@ -8,7 +8,7 @@ PORT = 8000
 
 app = Flask(__name__)
 
-CORS(images, origins=["http://localhost:3000"], supprots_credentials=False)
+CORS(images, origins=["http://localhost:3000", "https://pixel-wizard.herokuapp.com"], supports_credentials=False)
 
 app.register_blueprint(images, url_prefix="/images/")
 
