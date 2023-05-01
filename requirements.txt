@@ -1,6 +1,6 @@
 attrs==19.3.0
 click==7.1.2
-Flask==1.1.2
+Flask==2.3.2
 Flask-Cors==3.0.9
 gunicorn==20.0.4
 iniconfig==1.0.1
