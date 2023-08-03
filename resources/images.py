@@ -10,7 +10,7 @@ def hex_to_rgb(hex):
 def draw_gif(frames, image_uuid, delay=40, width=200, height=200, pixel_size=5):
 	images = []
 	for frame in frames:
-		image = Image.new("P", (width, height), (0, 0, 0, 0))
+		image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
 		draw = ImageDraw.Draw(image)
 		for i in range(len(frame)):
 			for j in range(len(frame[i])):
@@ -58,6 +58,6 @@ def new_image():
 @images.route("/<image_name>", methods=["GET"])
 def get_image(image_name):
 	try:
-		return send_from_directory("static/images", filename=f"{image_name}.gif", as_attachment=True)
+		return send_from_directory("static/images", f"{image_name}.gif", as_attachment=True)
 	except FileNotFoundError:
 		abort(404)
