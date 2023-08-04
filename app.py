@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file
 from flask_cors import CORS
 
 from resources.images import images
@@ -19,7 +19,7 @@ app.register_blueprint(images, url_prefix="/images/")
 
 @app.route("/")
 def index():
-	return render_template("index.html")
+	return send_file("static/index.html")
 
 @app.route("/test/")
 def test_route():
