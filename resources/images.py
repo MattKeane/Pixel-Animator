@@ -10,7 +10,7 @@ def hex_to_rgb(hex):
 def draw_gif(frames, image_uuid, delay=40, width=200, height=200, pixel_size=5):
 	images = []
 	for frame in frames:
-		image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+		image = Image.new("RGBA", (width, height), (255, 255, 255, 0))
 		draw = ImageDraw.Draw(image)
 		for i in range(len(frame)):
 			for j in range(len(frame[i])):
